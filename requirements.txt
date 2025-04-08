@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+PyPDF2
+transformers
+langchain
+faiss-cpu
+sentence-transformers
+jose
+passlib[bcrypt]

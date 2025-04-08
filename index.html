@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG Web Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="app.js"></script>
+  <style>
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: sans-serif;
+  }
+
+  input, textarea {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #555;
+  }
+</style>
+
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <!-- Navbar -->
+  <header class="flex justify-between items-center px-6 py-4 bg-white shadow dark:bg-gray-800 dark:text-white">
+    <h1 class="text-xl font-bold">🌾 RAG AI Assistant</h1>
+    <div class="flex items-center gap-4">
+      <button id="toggleTheme" class="text-sm px-2 py-1 border rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+        Toggle 🌙/☀️
+      </button>
+      <button id="logoutBtn" class="text-sm text-blue-600 hover:underline hidden">Logout</button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="p-6 max-w-4xl mx-auto">
+
+    <!-- Auth Section -->
+    <section id="authSection" class="space-y-4">
+      <h2 class="text-lg font-semibold">Login or Signup</h2>
+    <input id="username" type="text" placeholder="Username" class="border p-2 w-full rounded bg-white text-black     dark:bg-gray-700 dark:text-white" />
+<input id="password" type="password" placeholder="Password" class="border p-2 w-full rounded bg-white text-black dark:bg-gray-700 dark:text-white" />
+
+      <div class="flex gap-4">
+        <button id="loginBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Login 🔐</button>
+        <button id="signupBtn" class="bg-green-500 text-white px-4 py-2 rounded">Signup 📝</button>
+      </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="uploadSection" class="space-y-4 mt-10 hidden">
+      <h2 class="text-lg font-semibold">Upload Document</h2>
+      <input id="uploadInput" type="file" class="border p-2 w-full rounded" />
+      <button id="uploadBtn" class="bg-purple-500 text-white px-4 py-2 rounded">Upload 📂</button>
+    </section>
+
+    <!-- Document History -->
+    <section id="docHistory" class="mt-6 hidden">
+      <h3 class="text-md font-medium mb-2">🗂 Document History</h3>
+      <ul id="docList" class="list-disc ml-5 text-sm text-gray-700 dark:text-gray-300"></ul>
+    </section>
+
+    <!-- Chat Section -->
+    <section id="chatSection" class="mt-10 hidden">
+      <h2 class="text-lg font-semibold mb-2">Ask Your Question</h2>
+      <form id="chatForm" class="flex gap-2">
+        <input id="queryInput" type="text" placeholder="Ask something..." class="border p-2 flex-grow rounded" />
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Ask 🔍</button>
+      </form>
+
+      <!-- Loader -->
+      <div id="loader" class="mt-4 text-sm text-gray-500 hidden">Loading response...</div>
+
+      <!-- Chat History -->
+      <div id="chatHistory" class="mt-6 space-y-4 text-sm">
+        <!-- chat messages go here -->
+      </div>
+    </section>
+  </main>
+</body>
+</html>

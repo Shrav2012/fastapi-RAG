@@ -1,1 +1,1 @@
-fastapiuvicornpython-multipartPyPDF2transformerssentence-transformersfaiss-cpulangchainlangchain-communityjosepasslib[bcrypt]aiofiles 
+fastapiuvicornpython-multipartPyPDF2transformerssentence-transformersfaiss-cpulangchainlangchain-communitypython-josepasslib[bcrypt]aiofiles 

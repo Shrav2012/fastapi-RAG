@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from jose_utils import JWTError, jwt
+from jose import JWTError, jwt
 
 # Demo user storage (in-memory)
 users = {

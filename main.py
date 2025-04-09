@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, Form, Depends, HTTPException
 from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 import os
 
@@ -10,7 +11,7 @@ from auth import authenticate_user, create_access_token, get_current_user
 
 app = FastAPI()
 
-# CORS (for frontend JS to call APIs)
+# CORS middleware for frontend API calls
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,14 +20,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static directory for HTML/CSS/JS
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# OAuth2 setup
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
-# ✅ Serve index.html at root URL
+# Serve index.html at root
 @app.get("/", response_class=HTMLResponse)
 async def serve_home():
-    return FileResponse("index.html")  # Or change path if it's in another folder
+    return FileResponse("static/index.html")
 
-# 🔐 Token login
+# User login for token
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form_data.username, form_data.password)
@@ -35,19 +40,19 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     token = create_access_token({"sub": user["username"]})
     return {"access_token": token, "token_type": "bearer"}
 
-# 📄 Upload PDF
+# Upload PDF
 @app.post("/upload")
 async def upload_file(file: UploadFile, token: str = Depends(oauth2_scheme)):
     content = await file.read()
     result = ingest_document(content)
     return JSONResponse(content={"message": result})
 
-# 💬 Ask a question
+# Ask a question
 @app.post("/query")
 async def ask_question(query: str = Form(...), token: str = Depends(oauth2_scheme)):
     answer = query_rag(query)
     return JSONResponse(content={"answer": answer})
 
-# 🔄 Only for local dev (Render doesn't run this)
+# Run only in local dev
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, reload=True)

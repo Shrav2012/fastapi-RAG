@@ -9,4 +9,4 @@ sentence-transformers
 jose
 passlib[bcrypt]
 langchain-community
-
+aiofiles

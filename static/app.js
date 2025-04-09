@@ -14,7 +14,7 @@ const docList = document.getElementById("docList");
 const docHistory = document.getElementById("docHistory");
 const toggleTheme = document.getElementById("toggleTheme");
 
-const backendURL = "http://localhost:8000"; // change if hosted elsewhere
+const backendURL = window.location.origin; // change if hosted elsewhere
 
 function showAppUI() {
   authSection.classList.add("hidden");
